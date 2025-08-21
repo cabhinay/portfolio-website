@@ -172,7 +172,7 @@ export default function Hero({ data, theme }) {
   });
 
   return (
-    <section id="hero" className="section relative flex flex-col items-center justify-center min-h-screen text-center overflow-hidden pt-16">
+    <section id="hero" className="section relative flex flex-col items-center justify-center min-h-screen text-center overflow-hidden pt-24">
       {/* Animated background with dots */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {dots.map((dot) => (
@@ -214,13 +214,13 @@ export default function Hero({ data, theme }) {
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-5xl sm:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary flex justify-center items-center flex-col"
+          className="text-4xl sm:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary flex justify-center items-center flex-col mt-8"
         >
-          <span className="inline-flex items-baseline min-h-[1.2em]">
+          <span className="inline-flex items-baseline min-h-[1.5em] leading-relaxed">
             {typedText}
             <span ref={cursorRef} className="inline-block w-0.5 h-[0.8em] bg-primary ml-1"></span>
           </span>
-          <span className="text-xs text-gray-400 mt-2 font-normal">
+          <span className="text-xs text-gray-400 mt-1 font-normal">
             {greetings[languageIndex].language}
           </span>
         </motion.h1>
