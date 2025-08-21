@@ -7,7 +7,7 @@
     "contact": "#contact"
   },
   "about": {
-    "description": "I design and build intelligent, cloud-native, and AI-enhanced platforms that power high-impact systems. With expertise in .NET, Azure, AWS, and AI/LLMs, I focus on creating scalable software that improves accuracy, security, and developer productivity at global scale.",
+    "description": "I design and build intelligent, cloud-native, and AI-enhanced platforms that power high-impact systems. With expertise in Java, .NET, Azure, AWS, and AI/LLMs, I focus on creating scalable software that improves accuracy, security, and developer productivity at global scale.",
     "education": "Bachelor of Engineering (Computer Engineering), Army Institute of Technology, Pune",
     "interests": ["AI-Driven Automation", "Cloud Architecture", "Intelligent Systems", "FinTech & Ad-Tech", "Badminton"]
   },
@@ -64,42 +64,34 @@
         "Built Agile progress charts using JIRA REST APIs to improve reporting efficiency.",
         "Applied Agile methodology and Swagger documentation for better delivery."
       ]
-    },
-    {
-      "role": "Campus Ambassador",
-      "company": "InterviewBit",
-      "duration": "Jul 2019 — Jun 2020",
-      "responsibilities": [
-        "Promoted InterviewBit coding platform and facilitated peer learning sessions."
-      ]
     }
   ],
   "projects": [
     {
-      "title": "AI-Powered Windows Test Health Platform",
-      "description": "A Microsoft platform that leverages AI/LLMs to analyze test security, determinism, and modernization at scale, enabling developers to build safer, more reliable apps — indirectly impacting 6+ billion Windows OS users.",
-      "tech": ["C#", ".NET", "Azure Data Factory", "Azure Cognitive Services", "LLM Integration"],
-      "demo": "https://www.abhinay.co.in",
-      "github": ""
+      "title": "Progress AI",
+      "description": "An AI-powered goal achiever and progress tracking application that leverages Java Spring Boot with OpenAI function calling. It delivers structured AI-driven responses to monitor goals automatically, enabling smarter insights and reducing manual tracking effort. The frontend is built with React for an intuitive user experience.",
+      "tech": ["Java", "Spring Boot", "OpenAI APIs", "Function Calling", "React"],
+      "demo": "",
+      "github": "https://github.com/cabhinay"
     },
     {
-      "title": "Automated Quarantine Service (AI Security Tool)",
-      "description": "An AI-driven service that automatically detects insecure test patterns (e.g., plain-text passwords) and isolates them to improve the security posture of large-scale test systems.",
-      "tech": ["C#", ".NET", "Azure", "AI/LLM", "Security Automation"],
+      "title": "TO-DO and Video Call App",
+      "description": "A collaborative full-stack application that puts real-time video calling at its core, enabling seamless face-to-face communication alongside task management. Teams can connect instantly over video while organizing and tracking their TO-DOs in one integrated platform.",
+      "tech": ["React", "Java", "Spring Boot", "WebRTC", "MongoDB"],
       "demo": "",
-      "github": ""
+      "github": "https://github.com/cabhinay/TO-DO-and-Video-Call-App"
     },
     {
       "title": "AI-Powered Password Detection",
       "description": "Replaced traditional regex-based detection with an AI/LLM-powered model that accurately distinguishes between usernames and passwords — reducing false positives/negatives by 10x and boosting developer confidence.",
-      "tech": ["C#", ".NET", "Azure Cognitive Services", "LLM Models"],
+      "tech": ["C#", ".NET", "Azure Cognitive Services", "OpenAI API"],
       "demo": "",
       "github": ""
     },
     {
-      "title": "Ad-Tech Microservices",
-      "description": "Optimized GraphQL-based microservices in the TripleLift ad-exchange ecosystem, improving ad delivery performance by 20%.",
-      "tech": ["Java", "Spring Boot", "GraphQL", "AWS"],
+      "title": "On-Call AI",
+      "description": "An AI-powered incident analysis tool designed to assist on-call developers by automatically parsing logs, detecting anomalies, and correlating with past incidents. This accelerates root cause identification and resolution, reducing downtime and improving reliability of critical systems.",
+      "tech": ["OpenAI API", "Azure", "Kusto DB", "Log Analysis"],
       "demo": "",
       "github": ""
     }
@@ -116,7 +108,7 @@
     "AI/LLM Solutions", "Azure Cognitive Services", "Azure OpenAI Integration",
     "Java", "Spring Boot", "Microservices", "AWS",
     "CI/CD (GitHub Actions)", "Node.js", "React", "GraphQL",
-    "SAP BO", "Crystal Reports", "REST APIs", "Security Automation"
+    "REST APIs"
   ],
   "contact": {
     "email": "chauhan.abhinay.singh@gmail.com",
