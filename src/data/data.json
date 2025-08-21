@@ -1,67 +1,129 @@
 {
   "hero": {
     "name": "Hello, I'm Abhinay",
-    "role": "Software Engineer & Architect",
-    "intro": "Building innovative, scalable software on Azure with beautiful, accessible UIs.",
+    "role": "Software Engineer II @ Microsoft",
+    "intro": "Software Engineer specializing in scalable backend systems, AI-powered automation, and cloud-native platforms that serve billions of users.",
     "resume": "/resume.pdf",
     "contact": "#contact"
   },
   "about": {
-    "description": "I design and build production systems using .NET 8 and Azure — from event‑driven services to delightful front‑ends.",
-    "education": "B.Tech in Computer Science",
-    "interests": ["Badminton", "AI/ML", "Open Source"]
+    "description": "I design and build intelligent, cloud-native, and AI-enhanced platforms that power high-impact systems. With expertise in .NET, Azure, AWS, and AI/LLMs, I focus on creating scalable software that improves accuracy, security, and developer productivity at global scale.",
+    "education": "Bachelor of Engineering (Computer Engineering), Army Institute of Technology, Pune",
+    "interests": ["AI-Driven Automation", "Cloud Architecture", "Intelligent Systems", "FinTech & Ad-Tech", "Badminton"]
   },
   "experience": [
     {
       "role": "Software Engineer II",
       "company": "Microsoft",
-      "duration": "2020 — Present",
+      "duration": "May 2024 — Present",
       "responsibilities": [
-        "Designed and shipped Azure-first microservices with clean architecture",
-        "Implemented CI/CD in Azure DevOps and improved release reliability",
-        "Led internal hackathon projects and mentored engineers"
+        "Built an AI-enhanced Windows Test Health Platform that evaluates test determinism, security, and modernization — indirectly supporting 6+ billion Windows OS users.",
+        "Migrated multiple cluster databases into a unified system with Azure Data Factory, improving system performance by ~50% and enabling AI-driven analytics on test health.",
+        "Developed an Automated Quarantine Service leveraging AI models to detect and isolate insecure tests, strengthening the security of the Windows testing ecosystem.",
+        "Transitioned from regex-based password detection to an AI-powered LLM solution, improving detection accuracy by 10x and significantly reducing false positives/negatives."
+      ]
+    },
+    {
+      "role": "Software Developer II",
+      "company": "TripleLift",
+      "duration": "Jul 2023 — May 2024",
+      "responsibilities": [
+        "Engineered Java Spring Boot microservice optimizing GraphQL queries, improving API response time by 20%.",
+        "Integrated Auth0-based authentication, reducing potential security risks by 30%.",
+        "Automated CI/CD pipelines via GitHub Actions, cutting deployment time by 40%.",
+        "Worked with Grafana, Backstage, and AWS to enhance monitoring and scalability."
+      ]
+    },
+    {
+      "role": "Software Developer II",
+      "company": "Credit Suisse",
+      "duration": "Dec 2022 — Jul 2023",
+      "responsibilities": [
+        "Led monolith-to-microservices refactor in Securities Confirmations domain, enabling future AI-based automation opportunities.",
+        "Automated trade affirmation workflows with Spring Boot, saving ~1.2 FTEs.",
+        "Developed intelligent document comparison APIs to validate trade data with configurable thresholds, improving settlement accuracy.",
+        "Streamlined data integration across microservices for faster downstream processing."
       ]
     },
     {
       "role": "Software Developer",
-      "company": "Infosys",
-      "duration": "2018 — 2020",
+      "company": "Credit Suisse",
+      "duration": "Jun 2021 — Dec 2022",
       "responsibilities": [
-        "Modernized .NET applications and migrated workloads to Azure",
-        "Improved app performance and reduced infra cost"
+        "Automated trade workflows, reducing manual interventions and improving settlement reliability.",
+        "Developed APIs and downstream data integration workflows for automation.",
+        "Enhanced compliance and operational reporting using SAP BO/Crystal Reports."
+      ]
+    },
+    {
+      "role": "Full Stack Developer",
+      "company": "DBS Bank",
+      "duration": "Oct 2020 — Jun 2021",
+      "responsibilities": [
+        "Developed REST APIs in Node.js integrated with React for enterprise apps.",
+        "Built Agile progress charts using JIRA REST APIs to improve reporting efficiency.",
+        "Applied Agile methodology and Swagger documentation for better delivery."
+      ]
+    },
+    {
+      "role": "Campus Ambassador",
+      "company": "InterviewBit",
+      "duration": "Jul 2019 — Jun 2020",
+      "responsibilities": [
+        "Promoted InterviewBit coding platform and facilitated peer learning sessions."
       ]
     }
   ],
   "projects": [
     {
-      "title": "Notification Service",
-      "description": "Config‑driven, multi‑channel notifications platform used across teams.",
-      "tech": ["C#", ".NET 8", "Azure Service Bus", "App Config"],
-      "demo": "https://example.com/demo",
-      "github": "https://github.com/example/notifications"
+      "title": "AI-Powered Windows Test Health Platform",
+      "description": "A Microsoft platform that leverages AI/LLMs to analyze test security, determinism, and modernization at scale, enabling developers to build safer, more reliable apps — indirectly impacting 6+ billion Windows OS users.",
+      "tech": ["C#", ".NET", "Azure Data Factory", "Azure Cognitive Services", "LLM Integration"],
+      "demo": "https://www.abhinay.co.in",
+      "github": ""
     },
     {
-      "title": "Portfolio Website",
-      "description": "This site — React + Tailwind + Framer Motion with JSON‑driven content.",
-      "tech": ["React", "TailwindCSS", "Framer Motion"],
-      "demo": "https://example.com/portfolio",
-      "github": "https://github.com/example/portfolio"
+      "title": "Automated Quarantine Service (AI Security Tool)",
+      "description": "An AI-driven service that automatically detects insecure test patterns (e.g., plain-text passwords) and isolates them to improve the security posture of large-scale test systems.",
+      "tech": ["C#", ".NET", "Azure", "AI/LLM", "Security Automation"],
+      "demo": "",
+      "github": ""
+    },
+    {
+      "title": "AI-Powered Password Detection",
+      "description": "Replaced traditional regex-based detection with an AI/LLM-powered model that accurately distinguishes between usernames and passwords — reducing false positives/negatives by 10x and boosting developer confidence.",
+      "tech": ["C#", ".NET", "Azure Cognitive Services", "LLM Models"],
+      "demo": "",
+      "github": ""
+    },
+    {
+      "title": "Ad-Tech Microservices",
+      "description": "Optimized GraphQL-based microservices in the TripleLift ad-exchange ecosystem, improving ad delivery performance by 20%.",
+      "tech": ["Java", "Spring Boot", "GraphQL", "AWS"],
+      "demo": "",
+      "github": ""
     }
   ],
   "achievements": [
-    "Engineering Excellence Award — Microsoft",
-    "Hackathon Winner — 1st Place",
-    "Certified Azure Solutions Architect"
+    "Microsoft Hackathon Winner — AI Developer Tools Category",
+    "Recognition for introducing AI/LLM-based solutions in enterprise developer workflows",
+    "Certified in Neural Networks and Deep Learning",
+    "Certified Azure Solutions Architect",
+    "Bootstrap Certification"
   ],
   "skills": [
-    "C#", ".NET 8", "Azure", "Azure Service Bus", "App Configuration", "Key Vault", "Application Insights", "React", "TailwindCSS", "SQL", "Graph API"
+    "C#", ".NET", "Azure", "Azure Functions", "Azure Data Factory",
+    "AI/LLM Solutions", "Azure Cognitive Services", "Azure OpenAI Integration",
+    "Java", "Spring Boot", "Microservices", "AWS",
+    "CI/CD (GitHub Actions)", "Node.js", "React", "GraphQL",
+    "SAP BO", "Crystal Reports", "REST APIs", "Security Automation"
   ],
   "contact": {
-    "email": "abhinay@example.com",
+    "email": "chauhan.abhinay.singh@gmail.com",
     "socials": {
-      "linkedin": "https://linkedin.com/in/abhinay",
+      "linkedin": "https://www.linkedin.com/in/cabhinay",
       "github": "https://github.com/abhinay",
-      "twitter": "https://twitter.com/abhinay"
+      "portfolio": "https://www.abhinay.co.in"
     }
   }
 }
