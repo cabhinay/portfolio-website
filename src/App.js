@@ -10,7 +10,6 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import data from './data/data.json';
-import logoImg from './assets/images/abhinay_logo.png';
 
 export default function App() {
   const [theme, setTheme] = useState(() => {
