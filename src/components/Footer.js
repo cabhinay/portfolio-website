@@ -158,7 +158,7 @@ export default function Footer({ theme }) {
             © {year} All rights reserved.
           </p>
           <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} text-center sm:text-right`}>
-            Built with React, Vite, and Tailwind CSS
+            Built with ♥️ by Abhinay
           </p>
         </div>
       </div>
