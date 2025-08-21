@@ -1,0 +1,67 @@
+{
+  "hero": {
+    "name": "Hello, I'm Abhinay",
+    "role": "Software Engineer & Architect",
+    "intro": "Building innovative, scalable software on Azure with beautiful, accessible UIs.",
+    "resume": "/resume.pdf",
+    "contact": "#contact"
+  },
+  "about": {
+    "description": "I design and build production systems using .NET 8 and Azure — from event‑driven services to delightful front‑ends.",
+    "education": "B.Tech in Computer Science",
+    "interests": ["Badminton", "AI/ML", "Open Source"]
+  },
+  "experience": [
+    {
+      "role": "Software Engineer II",
+      "company": "Microsoft",
+      "duration": "2020 — Present",
+      "responsibilities": [
+        "Designed and shipped Azure-first microservices with clean architecture",
+        "Implemented CI/CD in Azure DevOps and improved release reliability",
+        "Led internal hackathon projects and mentored engineers"
+      ]
+    },
+    {
+      "role": "Software Developer",
+      "company": "Infosys",
+      "duration": "2018 — 2020",
+      "responsibilities": [
+        "Modernized .NET applications and migrated workloads to Azure",
+        "Improved app performance and reduced infra cost"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Notification Service",
+      "description": "Config‑driven, multi‑channel notifications platform used across teams.",
+      "tech": ["C#", ".NET 8", "Azure Service Bus", "App Config"],
+      "demo": "https://example.com/demo",
+      "github": "https://github.com/example/notifications"
+    },
+    {
+      "title": "Portfolio Website",
+      "description": "This site — React + Tailwind + Framer Motion with JSON‑driven content.",
+      "tech": ["React", "TailwindCSS", "Framer Motion"],
+      "demo": "https://example.com/portfolio",
+      "github": "https://github.com/example/portfolio"
+    }
+  ],
+  "achievements": [
+    "Engineering Excellence Award — Microsoft",
+    "Hackathon Winner — 1st Place",
+    "Certified Azure Solutions Architect"
+  ],
+  "skills": [
+    "C#", ".NET 8", "Azure", "Azure Service Bus", "App Configuration", "Key Vault", "Application Insights", "React", "TailwindCSS", "SQL", "Graph API"
+  ],
+  "contact": {
+    "email": "abhinay@example.com",
+    "socials": {
+      "linkedin": "https://linkedin.com/in/abhinay",
+      "github": "https://github.com/abhinay",
+      "twitter": "https://twitter.com/abhinay"
+    }
+  }
+}

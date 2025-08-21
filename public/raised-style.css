@@ -1,0 +1,25 @@
+/* Sharp edges and raised effect for cards */
+.card {
+  border-radius: 0.25rem !important; /* Sharp edges */
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+  transform: translateY(-2px); /* Raised effect */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+  transform: translateY(-4px);
+}
+
+/* Sharp edges and raised effect for buttons */
+.btn {
+  border-radius: 0.25rem !important; /* Sharp edges */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transform: translateY(-1px); /* Raised effect */
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}

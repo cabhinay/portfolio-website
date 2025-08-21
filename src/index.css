@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { 
+  scroll-behavior: smooth; 
+}
+
+/* Base typography */
+@layer base {
+  html { 
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; 
+  }
+  body { 
+    @apply bg-light-bg text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-200; 
+  }
+  ::selection { 
+    @apply bg-primary text-white; 
+  }
+}
+
+/* Sharp edges and raised styles applied globally */
+.btn, .card {
+  border-radius: 0.25rem !important;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover, .card:hover {
+  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+  transform: translateY(-4px);
+}
+
+/* Reusable utilities */
+@layer components {
+  .container-px { 
+    @apply w-full max-w-6xl mx-auto px-5 sm:px-8 lg:px-12; 
+  }
+  .section { 
+    @apply container-px min-h-screen py-16 sm:py-20 flex items-center justify-center; 
+  }
+  .card { 
+    @apply bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700;
+  }
+  .btn { 
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 font-medium;
+  }
+  .btn-primary { 
+    @apply btn bg-primary text-white hover:bg-accent;
+  }
+  .btn-ghost { 
+    @apply btn bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white dark:text-white dark:border-white;
+  }
+  .heading { 
+    @apply text-3xl sm:text-4xl font-extrabold; 
+  }
+}
