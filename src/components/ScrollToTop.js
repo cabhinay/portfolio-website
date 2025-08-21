@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowUp } from 'react-icons/fa';
 
-export default function ScrollToTop() {
+export default function ScrollToTop({ theme }) {
   const [isVisible, setIsVisible] = useState(false);
 
   // Show button when page is scrolled up to given distance

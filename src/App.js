@@ -14,7 +14,7 @@ import data from './data/data.json';
 export default function App() {
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
-    return savedTheme || 'light';
+    return savedTheme || 'dark';
   });
 
   useEffect(() => {
@@ -41,16 +41,16 @@ export default function App() {
 
       <Navbar theme={theme} setTheme={setTheme} />
       <main className="relative z-10 pt-24">
-        <Hero data={data.hero} />
-        <About data={data.about} />
-        <Experience data={data.experience} />
-        <Projects data={data.projects} />
-        <Achievements data={data.achievements} />
-        <Skills data={data.skills} />
-        <Contact data={data.contact} />
+        <Hero data={data.hero} theme={theme} />
+        <About data={data.about} theme={theme} />
+        <Experience data={data.experience} theme={theme} />
+        <Projects data={data.projects} theme={theme} />
+        <Achievements data={data.achievements} theme={theme} />
+        <Skills data={data.skills} theme={theme} />
+        <Contact data={data.contact} theme={theme} />
       </main>
-      <Footer />
-      <ScrollToTop />
+      <Footer theme={theme} />
+      <ScrollToTop theme={theme} />
     </div>
   );
 }

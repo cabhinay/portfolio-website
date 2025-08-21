@@ -15,7 +15,7 @@ const item = {
   show: { opacity: 1, y: 0 }
 };
 
-export default function Skills({ data }) {
+export default function Skills({ data, theme }) {
   return (
     <section id="skills" className="section relative">
       {/* Gradient blobs */}
@@ -27,7 +27,7 @@ export default function Skills({ data }) {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="heading text-center text-white"
+          className={`heading text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
         >
           Technical <span className="text-primary">Skills</span>
         </motion.h2>
@@ -41,7 +41,7 @@ export default function Skills({ data }) {
         >
           <motion.div 
             variants={item} 
-            className="bg-gray-900/70 backdrop-blur-sm border border-gray-800 p-6"
+            className={`${theme === 'dark' ? 'bg-gray-900/70 border-gray-800' : 'bg-white/80 border-gray-200'} backdrop-blur-sm border p-6`}
             style={{ 
               borderRadius: '0.25rem',
               boxShadow: '0 5px 10px rgba(0,0,0,0.2)',

@@ -8,7 +8,7 @@ const socialIcons = {
   twitter: FaTwitter
 };
 
-export default function Contact({ data }) {
+export default function Contact({ data, theme }) {
   return (
     <section id="contact" className="section relative">
       {/* Gradient blobs */}
@@ -20,7 +20,7 @@ export default function Contact({ data }) {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="heading text-center text-white"
+          className={`heading text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
         >
           Get in <span className="text-primary">Touch</span>
         </motion.h2>
@@ -31,7 +31,7 @@ export default function Contact({ data }) {
           viewport={{ once: true }}
           className="mt-8 max-w-2xl mx-auto text-center"
         >
-          <p className="text-gray-300 mb-8">Let's collaborate on your next project!</p>
+          <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-8`}>Let's collaborate on your next project!</p>
           
           <div className="flex justify-center gap-6">
             {Object.entries(data.socials).map(([platform, url]) => {
@@ -45,8 +45,8 @@ export default function Contact({ data }) {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 bg-gray-900/70 backdrop-blur-sm border border-gray-800 flex items-center justify-center 
-                           text-xl text-primary hover:bg-primary/10 transition-colors"
+                  className={`w-12 h-12 ${theme === 'dark' ? 'bg-gray-900/70 border-gray-800' : 'bg-white/80 border-gray-200'} backdrop-blur-sm border flex items-center justify-center 
+                           text-xl text-primary hover:bg-primary/10 transition-colors`}
                   style={{ borderRadius: '0.25rem' }}
                   aria-label={`Connect on ${platform}`}
                 >

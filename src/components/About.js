@@ -16,7 +16,7 @@ const AnimatedDot = ({ size, opacity, posX, posY, scale }) => {
   );
 };
 
-export default function About({ data }) {
+export default function About({ data, theme }) {
   const features = [
     {
       title: 'Client‑First Approach',
@@ -126,7 +126,7 @@ export default function About({ data }) {
   });
 
   return (
-    <section id="about" className="relative min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden">
+    <section id="about" className={`relative min-h-screen flex flex-col items-center justify-center ${theme === 'dark' ? 'bg-black' : 'bg-light-bg'} overflow-hidden`}>
       {/* Animated background with dots */}
       <div className="absolute inset-0 overflow-hidden pointer-events-auto" ref={containerRef}>
         {dots.map((dot) => (
@@ -192,7 +192,7 @@ export default function About({ data }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="heading text-white"
+            className={`heading ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
           >
             About <span className="text-primary">Me</span>
           </motion.h2>
@@ -201,7 +201,7 @@ export default function About({ data }) {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="mt-4 text-gray-300"
+            className={`mt-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
           >
             {data.description}
           </motion.p>
@@ -215,7 +215,7 @@ export default function About({ data }) {
               whileInView={{ opacity: 1, y: 0 }} 
               viewport={{ once: true }} 
               transition={{ delay: i * 0.05 }} 
-              className="bg-gray-900/70 backdrop-blur-sm border border-gray-800 p-5"
+              className={`${theme === 'dark' ? 'bg-gray-900/70 border-gray-800' : 'bg-white/80 border-gray-200'} backdrop-blur-sm border p-5`}
               style={{ 
                 borderRadius: '0.25rem',
                 boxShadow: '0 5px 10px rgba(0,0,0,0.2)',
@@ -228,19 +228,19 @@ export default function About({ data }) {
               }}
             >
               <div className="text-2xl">{f.icon}</div>
-              <h3 className="mt-3 font-semibold text-white">{f.title}</h3>
-              <p className="mt-2 text-sm text-gray-300">{f.desc}</p>
+              <h3 className={`mt-3 font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{f.title}</h3>
+              <p className={`mt-2 text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{f.desc}</p>
             </motion.div>
           ))}
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-3">
-          <div className="bg-gray-900/70 backdrop-blur-sm border border-gray-800 rounded-2xl shadow-lg p-5">
-            <h4 className="font-semibold text-white">Education</h4>
-            <p className="text-gray-300 mt-2">{data.education}</p>
+          <div className={`${theme === 'dark' ? 'bg-gray-900/70 border-gray-800' : 'bg-white/80 border-gray-200'} backdrop-blur-sm border rounded-2xl shadow-lg p-5`}>
+            <h4 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Education</h4>
+            <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mt-2`}>{data.education}</p>
           </div>
-          <div className="bg-gray-900/70 backdrop-blur-sm border border-gray-800 rounded-2xl shadow-lg p-5 sm:col-span-2">
-            <h4 className="font-semibold text-white">Interests</h4>
+          <div className={`${theme === 'dark' ? 'bg-gray-900/70 border-gray-800' : 'bg-white/80 border-gray-200'} backdrop-blur-sm border rounded-2xl shadow-lg p-5 sm:col-span-2`}>
+            <h4 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Interests</h4>
             <div className="mt-2 flex flex-wrap gap-2">
               {data.interests.map((x, i) => (
                 <span key={i} className="px-3 py-1 rounded-lg bg-primary/15 text-primary text-sm">{x}</span>

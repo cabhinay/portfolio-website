@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-export default function Experience({ data }) {
+export default function Experience({ data, theme }) {
   return (
     <section id="experience" className="section relative">
       {/* Gradient blobs */}
@@ -12,7 +12,7 @@ export default function Experience({ data }) {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="heading text-center text-white"
+          className={`heading text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
         >
           Professional <span className="text-primary">Experience</span>
         </motion.h2>
@@ -24,7 +24,7 @@ export default function Experience({ data }) {
               initial={{ opacity: 0, y: 20 }} 
               whileInView={{ opacity: 1, y: 0 }} 
               viewport={{ once: true }} 
-              className="bg-gray-900/70 backdrop-blur-sm border border-gray-800 p-6"
+              className={`${theme === 'dark' ? 'bg-gray-900/70 border-gray-800' : 'bg-white/80 border-gray-200'} backdrop-blur-sm border p-6`}
               style={{ 
                 borderRadius: '0.25rem',
                 boxShadow: '0 5px 10px rgba(0,0,0,0.2)',
@@ -37,10 +37,10 @@ export default function Experience({ data }) {
               }}
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                <h3 className="text-xl font-semibold text-white">{job.role} · <span className="text-primary">{job.company}</span></h3>
-                <span className="text-sm text-gray-300">{job.duration}</span>
+                                <h3 className={`text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{job.role} · <span className="text-primary">{job.company}</span></h3>
+                <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{job.duration}</span>
               </div>
-              <ul className="mt-4 list-disc pl-5 space-y-2 text-sm text-gray-300">
+              <ul className={`mt-4 list-disc pl-5 space-y-2 text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                 {job.responsibilities.map((r, idx) => (<li key={idx}>{r}</li>))}
               </ul>
             </motion.article>

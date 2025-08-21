@@ -8,7 +8,7 @@ const iconMap = {
   star: FaStar
 };
 
-export default function Achievements({ data }) {
+export default function Achievements({ data, theme }) {
   return (
     <section id="achievements" className="section relative">
       {/* Gradient blobs */}
@@ -20,7 +20,7 @@ export default function Achievements({ data }) {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="heading text-center text-white"
+          className={`heading text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
         >
           Notable <span className="text-primary">Achievements</span>
         </motion.h2>
@@ -35,7 +35,7 @@ export default function Achievements({ data }) {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="bg-gray-900/70 backdrop-blur-sm border border-gray-800 p-6 flex gap-4"
+                  className={`${theme === 'dark' ? 'bg-gray-900/70 border-gray-800' : 'bg-white/80 border-gray-200'} backdrop-blur-sm border p-6 flex gap-4`}
                   style={{ 
                     borderRadius: '0.25rem',
                     boxShadow: '0 5px 10px rgba(0,0,0,0.2)',
@@ -53,7 +53,7 @@ export default function Achievements({ data }) {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2 text-white">{achievement}</h3>
+                    <h3 className={`text-lg font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{achievement}</h3>
                   </div>
                 </motion.article>
               );
@@ -68,7 +68,7 @@ export default function Achievements({ data }) {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-gray-900/70 backdrop-blur-sm border border-gray-800 p-6 flex gap-4"
+                className={`${theme === 'dark' ? 'bg-gray-900/70 border-gray-800' : 'bg-white/80 border-gray-200'} backdrop-blur-sm border p-6 flex gap-4`}
                 style={{ 
                   borderRadius: '0.25rem',
                   boxShadow: '0 5px 10px rgba(0,0,0,0.2)',
@@ -86,7 +86,7 @@ export default function Achievements({ data }) {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-2 text-white">{achievement.title}</h3>
+                  <h3 className={`text-lg font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{achievement.title}</h3>
                   <p className="text-sm text-gray-300">{achievement.description}</p>
                   {achievement.date && (
                     <span className="text-xs text-gray-300 block mt-2">

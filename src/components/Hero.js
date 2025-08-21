@@ -16,7 +16,7 @@ const AnimatedDot = ({ size, opacity, posX, posY, scale }) => {
   );
 };
 
-export default function Hero({ data }) {
+export default function Hero({ data, theme }) {
   const [dots, setDots] = useState([]);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [typedText, setTypedText] = useState('');
@@ -196,7 +196,7 @@ export default function Hero({ data }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.45 }}
-          className="mt-3 max-w-2xl text-white"
+          className={`mt-3 max-w-2xl ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
         >
           {data.intro}
         </motion.p>
@@ -243,7 +243,7 @@ export default function Hero({ data }) {
             
             <a 
               href={data.contact} 
-              className="group relative overflow-hidden bg-transparent border-2 border-primary text-white hover:text-primary px-6 py-3 font-semibold flex items-center gap-2 justify-center transition-all duration-300 hover:bg-primary/5"
+              className={`group relative overflow-hidden bg-transparent border-2 border-primary ${theme === 'dark' ? 'text-white hover:text-primary' : 'text-gray-900 hover:text-primary'} px-6 py-3 font-semibold flex items-center gap-2 justify-center transition-all duration-300 hover:bg-primary/5`}
               style={{ 
                 borderRadius: '0.25rem',
                 boxShadow: '0 5px 10px rgba(0,0,0,0.2)',
