@@ -5,6 +5,7 @@ import logo from '../assets/images/abhinay_logo.png';
 export default function Navbar({ theme, setTheme }) {
   const [open, setOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState('hero');
   const { scrollYProgress } = useScroll();
   
   useEffect(() => {
@@ -13,6 +14,33 @@ export default function Navbar({ theme, setTheme }) {
     });
     return () => unsubscribe();
   }, [scrollYProgress]);
+  
+  // Add effect to track which section is in the viewport
+  useEffect(() => {
+    const sections = ['hero', 'about', 'experience', 'projects', 'achievements', 'skills', 'contact'];
+    
+    const handleScroll = () => {
+      const pageYOffset = window.pageYOffset;
+      let current = 'hero';
+      
+      sections.forEach(sectionId => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const sectionTop = element.offsetTop - 100;
+          const sectionHeight = element.offsetHeight;
+          
+          if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+            current = sectionId;
+          }
+        }
+      });
+      
+      setActiveSection(current);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   const links = [
     { label: 'About', href: '#about' },
@@ -58,7 +86,7 @@ export default function Navbar({ theme, setTheme }) {
         <motion.a 
           href="#hero" 
           whileHover={{ scale: 1.05 }}
-          className="flex items-center"
+          className={`flex items-center ${activeSection === 'hero' ? 'nav-link-active-logo' : ''}`}
         >
           <img src={logo} alt="Abhinay Logo" className="h-12 w-auto" />
         </motion.a>
@@ -78,7 +106,12 @@ export default function Navbar({ theme, setTheme }) {
         <ul className={`hidden md:flex items-center gap-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
           {links.map(l => (
             <motion.li key={l.href} whileHover={{ scale: 1.1 }}>
-              <a className="hover:text-primary transition-colors" href={l.href}>{l.label}</a>
+              <a 
+                className={`transition-all ${l.href.substring(1) === activeSection ? 'nav-link-active' : 'hover:text-primary'}`} 
+                href={l.href}
+              >
+                {l.label}
+              </a>
             </motion.li>
           ))}
         </ul>
@@ -140,7 +173,9 @@ export default function Navbar({ theme, setTheme }) {
             {links.map(l => (
               <li key={l.href}>
                 <a 
-                  className={`block py-2 hover:text-primary ${
+                  className={`block py-2 ${
+                    l.href.substring(1) === activeSection ? 'nav-link-active' : 'hover:text-primary'
+                  } ${
                     theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                   }`} 
                   href={l.href} 

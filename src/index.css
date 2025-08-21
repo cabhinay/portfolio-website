@@ -33,6 +33,56 @@
 }
 
 /* Reusable utilities */
+/* Glitter animation for navbar */
+@keyframes glitter-effect {
+  0% { color: #8B5CF6; text-shadow: 0 0 5px #8B5CF6, 0 0 10px #8B5CF6; }
+  20% { color: #C084FC; text-shadow: 0 0 8px #C084FC, 0 0 15px rgba(192, 132, 252, 0.7); }
+  40% { color: #60A5FA; text-shadow: 0 0 8px #60A5FA, 0 0 15px rgba(96, 165, 250, 0.7); }
+  60% { color: #34D399; text-shadow: 0 0 5px #34D399, 0 0 10px rgba(52, 211, 153, 0.7); }
+  80% { color: #F472B6; text-shadow: 0 0 8px #F472B6, 0 0 15px rgba(244, 114, 182, 0.7); }
+  100% { color: #8B5CF6; text-shadow: 0 0 5px #8B5CF6, 0 0 10px #8B5CF6; }
+}
+
+.nav-link-active {
+  animation: glitter-effect 4s infinite;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #8B5CF6, #60A5FA, #34D399, #F472B6, #8B5CF6);
+  background-size: 200% 100%;
+  animation: gradient-shift 4s infinite;
+  border-radius: 2px;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Special effect for logo when hero section is active */
+.nav-link-active-logo img {
+  filter: drop-shadow(0 0 5px #8B5CF6);
+  animation: logo-glow 4s infinite;
+}
+
+@keyframes logo-glow {
+  0% { filter: drop-shadow(0 0 3px #8B5CF6); }
+  20% { filter: drop-shadow(0 0 5px #C084FC); }
+  40% { filter: drop-shadow(0 0 5px #60A5FA); }
+  60% { filter: drop-shadow(0 0 3px #34D399); }
+  80% { filter: drop-shadow(0 0 5px #F472B6); }
+  100% { filter: drop-shadow(0 0 3px #8B5CF6); }
+}
+
 @layer components {
   .container-px { 
     @apply w-full max-w-6xl mx-auto px-5 sm:px-8 lg:px-12; 
