@@ -30,7 +30,7 @@ export default function Hero({ data, theme }) {
       // Generate random dots
       const generateDots = () => {
         const newDots = [];
-        const numDots = 50; 
+        const numDots = 80; // Increased from 50 to 80 for more elements
         
         for (let i = 0; i < numDots; i++) {
           newDots.push({
@@ -41,9 +41,9 @@ export default function Hero({ data, theme }) {
             posY: Math.random() * window.innerHeight,
             scale: Math.random() * 2 + 1,
             velocity: {
-              x: (Math.random() - 0.5) * 0.2,
-              y: (Math.random() - 0.5) * 0.2,
-              scale: (Math.random() - 0.5) * 0.01
+              x: (Math.random() - 0.5) * 0.4, // Increased from 0.2 to 0.4 for faster movement
+              y: (Math.random() - 0.5) * 0.4, // Increased from 0.2 to 0.4 for faster movement
+              scale: (Math.random() - 0.5) * 0.02 // Increased from 0.01 to 0.02 for faster scaling
             }
           });
         }
