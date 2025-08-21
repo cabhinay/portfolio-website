@@ -9,7 +9,7 @@
 /* Base typography */
 @layer base {
   html { 
-    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; 
+    font-family: 'Roboto Mono', monospace, system-ui, -apple-system, Segoe UI, Arial, 'Noto Sans'; 
   }
   body { 
     @apply bg-light-bg text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-200; 

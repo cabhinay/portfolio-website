@@ -4,6 +4,9 @@ module.exports = {
   content: ['./public/index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        'mono': ['"Roboto Mono"', 'monospace'],
+      },
       colors: {
         primary: '#8B5CF6',     // main purple
         secondary: '#60A5FA',   // blue for gradients
