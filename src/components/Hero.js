@@ -1,5 +1,5 @@
 import { motion, useAnimationFrame } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 
 // Animated background dot component
 const AnimatedDot = ({ size, opacity, posX, posY, scale }) => {
@@ -20,8 +20,22 @@ export default function Hero({ data, theme }) {
   const [dots, setDots] = useState([]);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [typedText, setTypedText] = useState('');
-  const fullText = data.name;
-  const typingSpeed = 150; // ms per character
+  const [languageIndex, setLanguageIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(150); // ms per character
+  
+  // Define greeting messages in different languages using useMemo
+  const greetings = useMemo(() => [
+    { text: data.name, language: "English" },
+    { text: "नमस्ते, मैं अभिनय हूँ", language: "Hindi" },
+    { text: "Hola, soy Abhinay", language: "Spanish" },
+    { text: "你好，我是 Abhinay", language: "Chinese" },
+    { text: "こんにちは、Abhinayです", language: "Japanese" },
+    { text: "Bonjour, je suis Abhinay", language: "French" },
+    { text: "Ciao, sono Abhinay", language: "Italian" },
+    { text: "Olá, eu sou Abhinay", language: "Portuguese" },
+  ], [data.name]);
+  
   const cursorRef = useRef(null);
   
   // Initialize animated dots
@@ -71,17 +85,42 @@ export default function Hero({ data, theme }) {
   
   // Text typing effect
   useEffect(() => {
-    let index = 0;
-    const typingInterval = setInterval(() => {
-      setTypedText(fullText.substring(0, index + 1));
-      index++;
-      if (index === fullText.length) {
-        clearInterval(typingInterval);
-      }
-    }, typingSpeed);
+    const currentGreeting = greetings[languageIndex].text;
     
-    return () => clearInterval(typingInterval);
-  }, [fullText]);
+    const typeText = () => {
+      const currentLength = typedText.length;
+      
+      if (!isDeleting && currentLength === currentGreeting.length) {
+        // Done typing, start deleting after a pause
+        setTypingSpeed(2000); // Pause before deleting
+        setIsDeleting(true);
+        return;
+      } else if (isDeleting && currentLength === 0) {
+        // Done deleting, move to next language
+        setTypingSpeed(500); // Pause before typing next language
+        setIsDeleting(false);
+        setLanguageIndex((prev) => (prev + 1) % greetings.length);
+        return;
+      }
+      
+      // Set typing speed based on state
+      if (isDeleting) {
+        setTypingSpeed(50); // Faster when deleting
+      } else {
+        setTypingSpeed(150); // Normal speed when typing
+      }
+      
+      // Update typed text
+      setTypedText(
+        isDeleting
+          ? currentGreeting.substring(0, currentLength - 1)
+          : currentGreeting.substring(0, currentLength + 1)
+      );
+    };
+    
+    const timer = setTimeout(typeText, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [typedText, isDeleting, languageIndex, greetings, typingSpeed]);
   
   // Cursor blinking effect
   useEffect(() => {
@@ -175,11 +214,14 @@ export default function Hero({ data, theme }) {
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-5xl sm:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary flex justify-center items-center"
+          className="text-5xl sm:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary flex justify-center items-center flex-col"
         >
           <span className="inline-flex items-baseline min-h-[1.2em]">
             {typedText}
             <span ref={cursorRef} className="inline-block w-0.5 h-[0.8em] bg-primary ml-1"></span>
+          </span>
+          <span className="text-xs text-gray-400 mt-2 font-normal">
+            {greetings[languageIndex].language}
           </span>
         </motion.h1>
 
