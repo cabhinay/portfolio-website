@@ -153,11 +153,12 @@ export default function Footer({ theme }) {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} text-center sm:text-left`}>
+        <div className="flex justify-center items-center">
+          <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} text-center`}>
             © {year} All rights reserved.
           </p>
-          <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} text-center sm:text-right`}>
+          <span className={`mx-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>|</span>
+          <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} text-center`}>
             Built with ♥️ by Abhinay
           </p>
         </div>
