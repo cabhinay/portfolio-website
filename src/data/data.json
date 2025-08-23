@@ -68,7 +68,7 @@
   ],
   "projects": [
     {
-      "title": "AI-Powered Portfolio Chatbot",
+      "title": "AI Portfolio",
       "description": "An advanced conversational interface integrated directly into my portfolio website that leverages Azure OpenAI to provide interactive, natural language responses about my background, skills, and experience. The implementation features a secure proxy architecture that protects API credentials, intelligent context management for maintaining conversation state, and graceful fallback mechanisms for enhanced reliability. The chatbot represents me in first-person with a sophisticated prompt engineering approach to ensure accurate and professional responses.",
       "tech": ["React", "Azure OpenAI", "Azure Functions", "Prompt Engineering", "RESTful APIs", "Axios"],
       "demo": "https://www.abhinay.co.in",
