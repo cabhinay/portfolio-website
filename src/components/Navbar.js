@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import logo from '../assets/images/abhinay_logo.png';
 
-export default function Navbar({ theme, setTheme }) {
+export default function Navbar({ theme, setTheme, aiMode, setAIMode }) {
   const [open, setOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('hero');
@@ -117,13 +117,13 @@ export default function Navbar({ theme, setTheme }) {
         </ul>
 
         <div className="hidden md:flex items-center gap-3">
-            <motion.a 
+            <motion.button 
               whileHover={{ 
                 scale: 1.05,
                 boxShadow: '0 8px 15px rgba(0,0,0,0.3)',
                 y: -2
               }}
-              href="#contact" 
+              onClick={() => setAIMode(!aiMode)}
               className="group relative overflow-hidden bg-gradient-to-r from-primary to-blue-600 text-white px-3 py-1.5 font-semibold flex items-center gap-2 justify-center transition-all duration-300"
               style={{ 
                 borderRadius: '0.5rem',
@@ -132,8 +132,8 @@ export default function Navbar({ theme, setTheme }) {
               }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-blue-600/90 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
-            <span className="relative z-10">Get in Touch</span>
-          </motion.a>
+            <span className="relative z-10">{aiMode ? 'Exit AI Chat' : 'AI Chat Mode'}</span>
+          </motion.button>
           
             <motion.button 
               whileHover={{ scale: 1.1, rotate: 15 }} 
@@ -186,14 +186,16 @@ export default function Navbar({ theme, setTheme }) {
               </li>
             ))}
             <li className="flex gap-3 pt-2">
-              <a 
+              <button 
                 className="group relative overflow-hidden bg-gradient-to-r from-primary to-blue-600 text-white px-3 py-1.5 rounded-lg font-semibold shadow-lg flex items-center gap-2 justify-center transition-all duration-300 w-full" 
-                href="#contact" 
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setAIMode(!aiMode);
+                  setOpen(false);
+                }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-blue-600/90 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
-                <span className="relative z-10">Get in Touch</span>
-              </a>
+                <span className="relative z-10">{aiMode ? 'Exit AI Chat' : 'AI Chat Mode'}</span>
+              </button>
             </li>
             <li className="flex justify-center pt-3 pb-2">
               <button 

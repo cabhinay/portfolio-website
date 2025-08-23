@@ -1,0 +1,179 @@
+/* AI Mode Styles */
+
+/* Glowing effect for the AI avatar */
+.ai-avatar {
+  position: relative;
+}
+
+.ai-avatar::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  background: linear-gradient(45deg, rgba(79, 70, 229, 0.4), rgba(59, 130, 246, 0.4));
+  border-radius: 50%;
+  z-index: -1;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* New typing dots animation */
+.typing-dots {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+}
+
+.typing-dots span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #6366f1; /* Indigo color to match the theme */
+  margin: 0 4px;
+}
+
+.typing-dots span:nth-child(1) {
+  animation: bounce 0.6s infinite 0.1s;
+}
+
+.typing-dots span:nth-child(2) {
+  animation: bounce 0.6s infinite 0.3s;
+}
+
+.typing-dots span:nth-child(3) {
+  animation: bounce 0.6s infinite 0.5s;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Message animations */
+.message-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.message-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.message-exit {
+  opacity: 1;
+}
+
+.message-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+/* Custom scrollbar for the chat area */
+.chat-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+  background: rgba(79, 70, 229, 0.5);
+  border-radius: 10px;
+}
+
+.chat-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(79, 70, 229, 0.7);
+}
+
+/* Button hover effects */
+.send-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.send-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.send-button:hover::before {
+  transform: translateX(0);
+}
+
+/* Glass morphism effect for chat components */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-effect {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Nav item highlight effect */
+.nav-item {
+  position: relative;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #4f46e5, #3b82f6);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-item:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* Force light mode in AI Chat regardless of system theme */
+.ai-mode-light {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+}
+
+.ai-mode-light * {
+  color-scheme: light;
+}
+
+.ai-mode-light .glass-effect {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(200, 200, 200, 0.2) !important;
+}
