@@ -68,6 +68,13 @@
   ],
   "projects": [
     {
+      "title": "AI-Powered Portfolio Chatbot",
+      "description": "An advanced conversational interface integrated directly into my portfolio website that leverages Azure OpenAI to provide interactive, natural language responses about my background, skills, and experience. The implementation features a secure proxy architecture that protects API credentials, intelligent context management for maintaining conversation state, and graceful fallback mechanisms for enhanced reliability. The chatbot represents me in first-person with a sophisticated prompt engineering approach to ensure accurate and professional responses.",
+      "tech": ["React", "Azure OpenAI", "Azure Functions", "Prompt Engineering", "RESTful APIs", "Axios"],
+      "demo": "https://www.abhinay.co.in",
+      "github": "https://github.com/cabhinay/portfolio-website"
+    },
+    {
       "title": "Progress AI",
       "description": "An AI-powered goal achiever and progress tracking application that leverages Java Spring Boot with OpenAI function calling. It delivers structured AI-driven responses to monitor goals automatically, enabling smarter insights and reducing manual tracking effort. The frontend is built with React for an intuitive user experience.",
       "tech": ["Java", "Spring Boot", "OpenAI APIs", "Function Calling", "React"],
