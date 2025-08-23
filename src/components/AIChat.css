@@ -40,14 +40,130 @@
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* Remove box-shadow from ai-avatar class */
-/* .ai-avatar {
-  box-shadow: 0 8px 32px rgba(78, 99, 255, 0.2);
-} */
-
 .chat-container {
   scrollbar-width: thin;
   scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+/* Enhanced message styling */
+.message-content {
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+.message-content p {
+  margin-bottom: 0.75rem;
+}
+
+.message-content p:last-child {
+  margin-bottom: 0;
+}
+
+.message-content ul {
+  margin-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.message-content li {
+  margin-bottom: 0.25rem;
+  list-style-type: disc;
+}
+
+.message-content code {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 0.1rem 0.3rem;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.dark-theme .message-content code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.message-content strong {
+  font-weight: 600;
+}
+
+.message-content em {
+  font-style: italic;
+}
+
+.message-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.message-content h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.message-content a {
+  color: #4F46E5;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.message-content a::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: right;
+}
+
+.message-content a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.dark-theme .message-content a {
+  color: #818CF8;
+}
+
+.message-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.message-bubble {
+  border-radius: 18px;
+  max-width: calc(100% - 50px);
+  transition: all 0.3s ease;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.message-bubble.bot-message {
+  border-top-left-radius: 4px;
+}
+
+.message-bubble.user-message {
+  border-top-right-radius: 4px;
+}
+
+.message-timestamp {
+  opacity: 0.8;
+  font-size: 0.7rem;
+  margin-top: 4px;
 }
 
 .chat-container::-webkit-scrollbar {

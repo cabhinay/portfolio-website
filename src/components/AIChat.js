@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import data from '../data/data.json';
+import AzureOpenAIService from '../services/azure-openai-service';
+import formatMessageContent from '../utils/formatMessageContent';
 import './AIChat.css';
 
 const AIChat = ({ theme, setTheme, setAIMode }) => {
@@ -16,6 +18,14 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
   const [activeCategory, setActiveCategory] = useState(null);
   const messagesEndRef = useRef(null);
   const typingTimerRef = useRef(null);
+  
+  // Initialize Azure OpenAI service with resume data
+  const aiService = useMemo(() => {
+    // Create the service instance directly without depending on data
+    return new AzureOpenAIService(data);
+    // Empty dependency array since we're intentionally only creating this once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   
   // Function to safely deliver bot messages
   const deliverBotMessage = useCallback((content) => {
@@ -33,7 +43,7 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
     }, 0);
   }, [setIsTyping, setMessages]);
   
-  // Function to handle AI responses
+  // Function to generate AI responses
   const generateAIResponse = useCallback((topic) => {
     // Clear any existing typing timers
     if (typingTimerRef.current) {
@@ -52,62 +62,35 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
     
     setMessages(prevMessages => [...prevMessages, userMessage]);
     
-      // After a short delay, show typing indicator
+    // After a short delay, show typing indicator
     setTimeout(() => {
       console.log('Setting isTyping to true');
       setIsTyping(true);
-      scrollToBottom();      let responseContent = '';
+      scrollToBottom();
       
-      // Generate a response based on the navigation item clicked
-      switch(topic) {
-        case 'Me':
-          responseContent = `${data.about.description}`;
-          break;
-        case 'Projects':
-          if (data.projects && data.projects.length > 0) {
-            const project = data.projects[0];
-            responseContent = `Here's one of my projects: ${project.title}. ${project.description}`;
-          } else {
-            responseContent = "I've worked on several interesting projects. Check out my Projects section for more details!";
-          }
-          break;
-        case 'Skills':
-          responseContent = `My key skills and interests include ${data.about.interests.join(', ')}.`;
-          break;
-        case 'Fun':
-          responseContent = "When I'm not coding, I enjoy activities like " + 
-            (data.about.interests.length > 2 ? data.about.interests.slice(-1)[0] : "exploring new technologies") + 
-            ". Feel free to ask me about my hobbies!";
-          break;
-        case 'Contact':
-          responseContent = "You can reach out to me through the contact form on this site, or check my social profiles for more ways to connect.";
-          break;
-        default:
-          responseContent = "How can I help you today?";
-      }
-      
-      // Calculate a typing delay based on message length
-      const typingDelay = Math.min(3000, Math.max(1500, responseContent.length * 25));
-      
-      // Add response after a delay
-      typingTimerRef.current = setTimeout(() => {
-        console.log('Setting isTyping to false - Nav button');
-        deliverBotMessage(responseContent);
-      }, typingDelay);
+      // Get Azure OpenAI response for the navigation item clicked
+      aiService.generateCategoryResponse(topic)
+        .then(responseContent => {
+          // Calculate a typing delay based on message length (for natural feel)
+          const typingDelay = Math.min(3000, Math.max(1500, responseContent.length * 25));
+          
+          // Add response after a delay
+          typingTimerRef.current = setTimeout(() => {
+            console.log('Setting isTyping to false - Nav button');
+            deliverBotMessage(responseContent);
+          }, typingDelay);
+        })
+        .catch(error => {
+          console.error("Error getting AI response:", error);
+          // Fallback message in case of error
+          const fallbackResponse = "I'm having trouble connecting to my AI services. Please try again later.";
+          typingTimerRef.current = setTimeout(() => {
+            deliverBotMessage(fallbackResponse);
+          }, 1500);
+        });
     }, 500);
-  }, [setActiveCategory, setMessages, setIsTyping, deliverBotMessage]);
+  }, [setActiveCategory, setMessages, setIsTyping, deliverBotMessage, aiService]);
   
-  // Sample AI responses based on portfolio data
-  const aiResponses = useMemo(() => [
-    `I'm ${data.hero.name.split("I'm ")[1]}, ${data.hero.role}`,
-    `${data.hero.intro}`,
-    `${data.about.description}`,
-    `I studied at ${data.about.education}.`,
-    `My interests include ${data.about.interests.join(', ')}.`,
-    "You can contact me through the contact form on this site.",
-    "Feel free to ask me about my experience, projects, skills, or achievements!"
-  ], [data]);
-
   // Auto-scroll to bottom when new messages arrive or typing state changes
   useEffect(() => {
     scrollToBottom();
@@ -207,46 +190,29 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
       console.log('Setting isTyping to true - handleSubmit');
       setIsTyping(true);
       
-      // Get response based on input
-      const userInput = currentInput.toLowerCase();
-      let responseContent = '';
-      
-      // Determine appropriate response based on keywords
-      if (userInput.includes('experience') || userInput.includes('work')) {
-        if (data.experience && data.experience.length > 0) {
-          responseContent = `I've worked at ${data.experience[0].company} as a ${data.experience[0].title}. ${data.experience[0].description}`;
-        } else {
-          responseContent = "I have extensive experience in software development. You can see more details in my Experience section.";
-        }
-      } else if (userInput.includes('project') || userInput.includes('portfolio')) {
-        if (data.projects && data.projects.length > 0) {
-          responseContent = `One of my notable projects is ${data.projects[0].title}. ${data.projects[0].description}`;
-        } else {
-          responseContent = "I've worked on several interesting projects. Check out my Projects section for more details!";
-        }
-      } else if (userInput.includes('skill') || userInput.includes('technologies') || userInput.includes('tech stack')) {
-        responseContent = `My skills include ${data.about.interests.join(', ')}, and more!`;
-      } else if (userInput.includes('contact') || userInput.includes('email') || userInput.includes('reach')) {
-        responseContent = "You can reach me through the contact form on this site, or via my social media profiles.";
-      } else if (userInput.includes('education') || userInput.includes('study') || userInput.includes('degree')) {
-        responseContent = data.about.education;
-      } else if (userInput.includes('hello') || userInput.includes('hi') || userInput.includes('hey')) {
-        responseContent = `Hello! I'm ${data.hero.name.split("I'm ")[1]}. How can I help you today?`;
-      } else {
-        // Default to random response if no keywords match
-        responseContent = aiResponses[Math.floor(Math.random() * aiResponses.length)];
-      }
-      
-      // Calculate a typing delay based on message length
-      const typingDelay = Math.min(3000, Math.max(1500, responseContent.length * 25));
-      
-      // After the typing delay, add the bot response
-      typingTimerRef.current = setTimeout(() => {
-        console.log('Setting isTyping to false - after message added');
-        deliverBotMessage(responseContent);
-      }, typingDelay);
+      // Get response from Azure OpenAI based on all previous messages
+      // This provides context for a more coherent conversation
+      aiService.generateResponse(currentInput, messages)
+        .then(responseContent => {
+          // Calculate a typing delay based on message length
+          const typingDelay = Math.min(3000, Math.max(1500, responseContent.length * 25));
+          
+          // After the typing delay, add the bot response
+          typingTimerRef.current = setTimeout(() => {
+            console.log('Setting isTyping to false - after message added');
+            deliverBotMessage(responseContent);
+          }, typingDelay);
+        })
+        .catch(error => {
+          console.error("Error getting AI response:", error);
+          // Fallback message in case of error
+          const fallbackResponse = "I'm having trouble connecting to my AI services. Please try again later.";
+          typingTimerRef.current = setTimeout(() => {
+            deliverBotMessage(fallbackResponse);
+          }, 1500);
+        });
     }, 500); // Small delay before showing typing indicator
-  }, [inputValue, setInputValue, setIsTyping, setMessages, deliverBotMessage, aiResponses]);
+  }, [inputValue, setInputValue, setIsTyping, setMessages, deliverBotMessage, aiService, messages]);
 
   return (
     <div className="max-w-4xl mx-auto h-screen flex flex-col py-6">
@@ -325,22 +291,44 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
               transition={{ duration: 0.3 }}
               className={`mb-4 flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
-              <div className={`max-w-[80%] px-5 py-4 rounded-2xl ${
-                message.type === 'user' 
-                  ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white' 
-                  : theme === 'dark'
-                    ? 'bg-gray-800 text-white'
-                    : 'bg-gray-100 text-gray-800'
-              }`}
-              style={{
-                boxShadow: message.type === 'user'
-                  ? '0 4px 15px rgba(99, 102, 241, 0.3)'
-                  : theme === 'dark'
-                    ? '0 4px 12px rgba(0, 0, 0, 0.2)'
-                    : '0 4px 12px rgba(0, 0, 0, 0.05)'
-              }}>
-                <p>{message.content}</p>
-                <div className={`text-xs mt-1 ${
+              {/* Avatar - only shown for bot messages */}
+              {message.type === 'bot' && (
+                <div 
+                  className={`message-avatar ${
+                    theme === 'dark' ? 'bg-gray-700' : 'bg-indigo-100'
+                  } flex-shrink-0`}
+                >
+                  <img 
+                    src={`${process.env.PUBLIC_URL}/${theme === 'dark' ? 'robot_image_white.png' : 'robot_image.png'}`}
+                    alt="AI Avatar" 
+                    className="h-6 w-6"
+                  />
+                </div>
+              )}
+              
+              <div 
+                className={`message-bubble px-5 py-4 ${
+                  message.type === 'user' 
+                    ? 'user-message bg-gradient-to-r from-indigo-500 to-purple-600 text-white' 
+                    : 'bot-message ' + (theme === 'dark'
+                        ? 'bg-gray-800 text-white'
+                        : 'bg-gray-100 text-gray-800')
+                }`}
+                style={{
+                  boxShadow: message.type === 'user'
+                    ? '0 4px 15px rgba(99, 102, 241, 0.3)'
+                    : theme === 'dark'
+                      ? '0 4px 12px rgba(0, 0, 0, 0.2)'
+                      : '0 4px 12px rgba(0, 0, 0, 0.05)'
+                }}
+              >
+                <div 
+                  className="message-content"
+                  dangerouslySetInnerHTML={{ 
+                    __html: formatMessageContent(message.content) 
+                  }}
+                />
+                <div className={`message-timestamp ${
                   message.type === 'user'
                     ? 'text-blue-100'
                     : theme === 'dark'
@@ -350,6 +338,19 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>
               </div>
+              
+              {/* Avatar - only shown for user messages */}
+              {message.type === 'user' && (
+                <div 
+                  className={`message-avatar ${
+                    theme === 'dark' ? 'bg-indigo-600' : 'bg-indigo-500'
+                  } text-white flex-shrink-0 ml-3`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              )}
             </motion.div>
           ))}
           
@@ -362,7 +363,19 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
               className="flex justify-start mb-4"
             >
               <div 
-                className={`px-5 py-4 rounded-2xl ${
+                className={`message-avatar ${
+                  theme === 'dark' ? 'bg-gray-700' : 'bg-indigo-100'
+                } flex-shrink-0`}
+              >
+                <img 
+                  src={`${process.env.PUBLIC_URL}/${theme === 'dark' ? 'robot_image_white.png' : 'robot_image.png'}`}
+                  alt="AI Avatar" 
+                  className="h-6 w-6"
+                />
+              </div>
+              
+              <div 
+                className={`message-bubble bot-message px-5 py-4 ${
                   theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-800'
                 }`}
                 style={{
@@ -376,7 +389,6 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
                   <span></span>
                   <span></span>
                 </div>
-                {console.log('Rendering typing indicator')}
               </div>
             </motion.div>
           )}

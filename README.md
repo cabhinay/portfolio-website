@@ -1,10 +1,100 @@
-# Getting Started with Create React App
+# Portfolio Website with Azure AI Integration
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This portfolio website includes an AI chat feature powered by Azure OpenAI, allowing visitors to interact with an AI assistant that responds with information from your resume data.
 
-## Available Scripts
+## Azure OpenAI Setup
 
-In the project directory, you can run:
+To enable the Azure OpenAI integration securely:
+
+1. Create an Azure OpenAI resource in the Azure portal
+2. Deploy a model in your Azure OpenAI resource (recommended: gpt-35-turbo or gpt-4)
+3. Set up your environment variables as described below
+
+## Azure Functions Setup
+
+This project now uses Azure Functions instead of a traditional Express server for improved security and serverless architecture.
+
+### Local Development with Azure Functions
+
+1. Install the Azure Functions Core Tools:
+   ```
+   npm install -g azure-functions-core-tools@4
+   ```
+
+2. Set up local environment:
+   - Copy `api/local.settings.example.json` to `api/local.settings.json`
+   - Add your Azure OpenAI credentials to `local.settings.json`:
+     ```json
+     {
+       "IsEncrypted": false,
+       "Values": {
+         "FUNCTIONS_WORKER_RUNTIME": "node",
+         "AzureWebJobsStorage": "",
+         "AZURE_OPENAI_API_KEY": "your-api-key-here",
+         "AZURE_OPENAI_ENDPOINT": "your-endpoint-url-here"
+       },
+       "Host": {
+         "CORS": "*"
+       }
+     }
+     ```
+
+3. Run the functions locally:
+   ```
+   cd api && func start
+   ```
+
+4. In another terminal, start the React app:
+   ```
+   npm start
+   ```
+
+## Production Deployment to Azure Static Web Apps
+
+## Production Deployment to Azure Static Web Apps
+
+### Setting up Azure Static Web Apps
+
+1. Create an Azure Static Web App in the Azure Portal
+2. Link your GitHub repository
+3. Configure the following build settings:
+   - App location: `/`
+   - API location: `api`
+   - Output location: `build`
+
+### Securing Credentials in Production
+
+**IMPORTANT: Never commit sensitive credentials to your repository!**
+
+1. Add Application Settings in Azure Portal:
+   - Go to your Static Web App resource
+   - Select "Configuration" under Settings
+   - Add the following Application Settings:
+     - `AZURE_OPENAI_API_KEY`: Your Azure OpenAI API key
+     - `AZURE_OPENAI_ENDPOINT`: Your Azure OpenAI endpoint URL
+
+2. Add the same secrets to your GitHub repository:
+   - Go to repository Settings > Secrets and variables > Actions
+   - Add the secrets with the same names
+
+### Automatic Deployment
+
+When you push changes to your main branch, GitHub Actions will automatically build and deploy your application to Azure Static Web Apps.
+
+### Security Considerations
+
+- All API calls are processed through Azure Functions, so your API keys are never exposed to the client
+- Environment variables are securely stored in Azure and GitHub, not in your code
+- The frontend automatically detects if it's running in production or development and uses the appropriate API endpoint
+
+## Features
+
+- AI Chat mode that uses Azure OpenAI to generate dynamic responses based on your resume data
+- Conversation history and context-aware responses
+- Fallback to static responses if API calls fail
+- Category-based questions for quick navigation
+- Light/Dark mode support
+- Responsive design with animations using Framer Motion
 
 ### `npm start`
 
