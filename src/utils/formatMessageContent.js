@@ -7,12 +7,30 @@
 const formatMessageContent = (text) => {
   if (!text) return '';
 
+  // Process special sections first to wrap them in styled containers
+  // About Me section - wrap in profile card
+  if (text.includes('# ') && text.toLowerCase().includes('years old') && text.includes('👋')) {
+    text = text.replace(/(# .*?\n.*?\n\nHey 👋.*?)(\n\n|$)/s, '<div class="profile-section">$1</div>$2');
+  }
+
+  // Contact section - wrap in contact card
+  if (text.includes('🟢 Available')) {
+    text = text.replace(/(# .*?\nApplication Inquiry\n\n🟢 Available.*?)(\n\n|$)/s, '<div class="contact-card">$1</div>$2');
+    text = text.replace(/🟢 Available for opportunities/, '<div class="availability">🟢 Available for opportunities</div>');
+  }
+
+  // Handle markdown headings (before other formatting)
+  text = text.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+  text = text.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+  text = text.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+  text = text.replace(/^#### (.*$)/gm, '<h4>$1</h4>');
+
   // Handle code blocks with ```
   text = text.replace(/```([\s\S]*?)```/g, (match, code) => {
-    return `<pre class="bg-opacity-20 bg-gray-500 p-3 rounded-lg my-2 overflow-x-auto"><code>${code.trim()}</code></pre>`;
+    return `<pre class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4 rounded-xl my-3 overflow-x-auto shadow-sm"><code>${code.trim()}</code></pre>`;
   });
 
-  // Handle inline code with `
+  // Handle inline code with ` (special styling for skill tags)
   text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
 
   // Handle bold text with ** or __
@@ -20,6 +38,13 @@ const formatMessageContent = (text) => {
 
   // Handle italic text with * or _
   text = text.replace(/(\*|_)(.*?)\1/g, '<em>$2</em>');
+  
+  // Enhanced emoji handling
+  text = text.replace(/🟢/g, '<span class="emoji emoji-green">🟢</span>');
+  text = text.replace(/�/g, '<span class="emoji emoji-wave">�</span>');
+  text = text.replace(/📆/g, '<span class="emoji emoji-calendar">📆</span>');
+  text = text.replace(/🌎/g, '<span class="emoji emoji-globe">🌎</span>');
+  text = text.replace(/⚙️/g, '<span class="emoji emoji-gear">⚙️</span>');
 
   // Handle links with [text](url)
   text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
@@ -101,14 +126,8 @@ const formatMessageContent = (text) => {
       return `${closingTag}\n`;
     }
     
-    // Handle heading levels (h3, h4)
-    if (line.trim().startsWith('### ')) {
-      return `<h3 class="text-lg font-semibold mb-2">${line.trim().substring(4)}</h3>`;
-    }
-    
-    if (line.trim().startsWith('#### ')) {
-      return `<h4 class="text-md font-semibold mb-1">${line.trim().substring(5)}</h4>`;
-    }
+    // We now handle headings with regex at the top of the function
+    // This section is no longer needed as we use h1-h4 tags directly
     
     // Handle paragraphs with proper spacing
     if (line.trim() !== '') {

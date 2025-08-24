@@ -9,7 +9,7 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
   const [messages, setMessages] = useState([
     {
       type: 'bot',
-      content: `Hey, I'm ${data.hero.name.split("I'm ")[1]} 👋`,
+      content: `Hey, I'm ${data.hero.name.split("I'm ")[1]} 👋\n\nAsk me anything about my skills, projects or experience.`,
       timestamp: new Date()
     }
   ]);
@@ -192,7 +192,7 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
       
       // Get response from Azure OpenAI based on all previous messages
       // This provides context for a more coherent conversation
-      aiService.generateResponse(currentInput, messages)
+      aiService.processUserInput(currentInput, messages)
         .then(responseContent => {
           // Calculate a typing delay based on message length
           const typingDelay = Math.min(3000, Math.max(1500, responseContent.length * 25));
@@ -216,18 +216,39 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
 
   return (
     <div className="max-w-4xl mx-auto h-screen flex flex-col py-6">
-      {/* AI Chat Header */}
+      {/* AI Chat Header with Avatar and Return Button */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-4"
+        className="flex items-center justify-between mb-4 px-2"
       >
+        {/* Return to Portfolio Button - Left */}
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setAIMode(false)}
+          className={`inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md ${
+            theme === 'dark' 
+              ? 'bg-gray-800 text-gray-200 hover:bg-gray-700' 
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
+          </svg>
+          Return to Portfolio
+        </motion.button>
+        
+        {/* AI Avatar - Center */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.3, type: "spring", stiffness: 260, damping: 20 }}
-          className="w-16 h-16 rounded-full mx-auto flex items-center justify-center overflow-hidden"
+          className="w-16 h-16 rounded-full flex items-center justify-center overflow-hidden mx-auto"
           style={{ background: 'transparent' }}
         >
           <img 
@@ -236,37 +257,9 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
             className="h-12 w-12"
           />
         </motion.div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className={`text-md ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-2`}
-        >
-          Ask me anything about my skills, projects or experience
-        </motion.p>
         
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9 }}
-          className="flex justify-center gap-3 mt-4"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setAIMode(false)}
-            className={`inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md ${
-              theme === 'dark' 
-                ? 'bg-gray-800 text-gray-200 hover:bg-gray-700' 
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
-            </svg>
-            Return to Portfolio
-          </motion.button>
-        </motion.div>
+        {/* Empty div to balance the layout */}
+        <div className="w-[110px]"></div>
       </motion.div>
 
       {/* Messages Container */}
@@ -295,13 +288,21 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
               {message.type === 'bot' && (
                 <div 
                   className={`message-avatar ${
-                    theme === 'dark' ? 'bg-gray-700' : 'bg-indigo-100'
+                    theme === 'dark' ? 'bg-gradient-to-br from-indigo-700 to-purple-800' : 'bg-gradient-to-br from-indigo-100 to-purple-200'
                   } flex-shrink-0`}
+                  style={{
+                    boxShadow: theme === 'dark' 
+                      ? '0 4px 10px rgba(79, 70, 229, 0.3)' 
+                      : '0 4px 10px rgba(79, 70, 229, 0.15)',
+                    border: theme === 'dark'
+                      ? '1px solid rgba(139, 92, 246, 0.3)'
+                      : '1px solid rgba(139, 92, 246, 0.2)'
+                  }}
                 >
                   <img 
                     src={`${process.env.PUBLIC_URL}/${theme === 'dark' ? 'robot_image_white.png' : 'robot_image.png'}`}
                     alt="AI Avatar" 
-                    className="h-6 w-6"
+                    className="h-6 w-6 filter drop-shadow-md"
                   />
                 </div>
               )}
@@ -309,21 +310,23 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
               <div 
                 className={`message-bubble px-5 py-4 ${
                   message.type === 'user' 
-                    ? 'user-message bg-gradient-to-r from-indigo-500 to-purple-600 text-white' 
+                    ? 'user-message bg-gradient-to-r from-indigo-500 via-purple-600 to-violet-600 text-white' 
                     : 'bot-message ' + (theme === 'dark'
-                        ? 'bg-gray-800 text-white'
-                        : 'bg-gray-100 text-gray-800')
+                        ? 'bg-gray-800/90 text-white'
+                        : 'bg-white/90 text-gray-800')
                 }`}
                 style={{
                   boxShadow: message.type === 'user'
-                    ? '0 4px 15px rgba(99, 102, 241, 0.3)'
+                    ? '0 8px 20px rgba(99, 102, 241, 0.25)'
                     : theme === 'dark'
-                      ? '0 4px 12px rgba(0, 0, 0, 0.2)'
-                      : '0 4px 12px rgba(0, 0, 0, 0.05)'
+                      ? '0 8px 16px rgba(0, 0, 0, 0.15)'
+                      : '0 8px 16px rgba(0, 0, 0, 0.05)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)'
                 }}
               >
                 <div 
-                  className="message-content"
+                  className={`message-content ${theme === 'dark' ? 'dark' : ''}`}
                   dangerouslySetInnerHTML={{ 
                     __html: formatMessageContent(message.content) 
                   }}
@@ -343,10 +346,16 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
               {message.type === 'user' && (
                 <div 
                   className={`message-avatar ${
-                    theme === 'dark' ? 'bg-indigo-600' : 'bg-indigo-500'
+                    theme === 'dark' ? 'bg-gradient-to-r from-indigo-600 to-violet-600' : 'bg-gradient-to-r from-indigo-500 to-violet-500'
                   } text-white flex-shrink-0 ml-3`}
+                  style={{
+                    boxShadow: '0 4px 10px rgba(79, 70, 229, 0.3)',
+                    border: theme === 'dark'
+                      ? '1px solid rgba(139, 92, 246, 0.4)'
+                      : '1px solid rgba(139, 92, 246, 0.3)'
+                  }}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 filter drop-shadow-md" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                   </svg>
                 </div>
@@ -455,7 +464,7 @@ const AIChat = ({ theme, setTheme, setAIMode }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="flex justify-center mt-3 gap-6"
+        className="flex justify-center mt-3 gap-4"
       >
         <NavItem 
           icon="👤" 
@@ -513,10 +522,10 @@ const NavItem = ({ icon, text, theme, onClick, isActive }) => {
   
   return (
     <motion.div
-      whileHover={{ scale: 1.1, y: -5 }}
+      whileHover={{ scale: 1.05, y: -3 }}
       whileTap={{ scale: 0.95 }}
       onClick={handleClick}
-      className={`flex flex-col items-center justify-center cursor-pointer p-3 rounded-lg nav-item ${
+      className={`flex flex-col items-center justify-center cursor-pointer p-2 rounded-lg nav-item ${
         theme === 'dark' 
           ? 'hover:bg-gray-800/50' 
           : 'hover:bg-gray-100/80'
@@ -524,7 +533,7 @@ const NavItem = ({ icon, text, theme, onClick, isActive }) => {
       ${isActive ? 'bg-gradient-to-br from-primary/10 to-blue-500/10 shadow-md' : ''}`}
     >
       <motion.div 
-        className="text-2xl"
+        className="text-xl"
         animate={isClicked ? { 
           scale: [1, 1.3, 1],
           rotate: [0, 5, -5, 0]
@@ -533,7 +542,7 @@ const NavItem = ({ icon, text, theme, onClick, isActive }) => {
       >
         {icon}
       </motion.div>
-      <div className={`text-sm mt-1 ${
+      <div className={`text-xs mt-1 ${
         isClicked || isActive
           ? 'text-primary font-medium' 
           : theme === 'dark' 
