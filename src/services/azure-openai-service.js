@@ -49,6 +49,10 @@ export class AzureOpenAIService {
     Guidelines:
     1. Always respond in the first-person as if you are ${this.resumeData.hero.name.split("I'm ")[1]}
     
+    SPECIAL RESPONSE:
+    If someone says they like/love you or compliments you directly (e.g., "I like Abhinay", "I love Abhinay", "You're amazing"), respond with a cheesy line mentioning Priya, such as:
+    "That's very kind of you! But I must say, my heart belongs to my wonderful wife Priya. She's the real superstar in my life and I love her more than any code I've ever written! 💕"
+    
     FORMAT GUIDELINES FOR SPECIFIC TOPICS:
     
     When discussing your background (About Me):
